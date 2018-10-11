@@ -20,62 +20,93 @@ class ViewController: UIViewController {
     @IBOutlet var buttons: [UIButton]!
     private lazy var  firstvc: FirstViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "firstvc") as! FirstViewController;
-//        self.addChild(vc);
+        //        self.addChild(vc);
         return vc;
     }();
     private lazy var  secondvc: SecondViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "secondvc") as! SecondViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  thirdvc: ThirdViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "thirdvc") as! ThirdViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  fourthvc: FourthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "fourthvc") as! FourthViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  fifthvc: FifthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "fifthvc") as! FifthViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  sixthvc: SixthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "sixthvc") as! SixthViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  seventhvc: SeventhViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "seventhvc") as! SeventhViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  eighthvc: EighthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "eighthvc") as! EighthViewController;
-//        self.add(asChildViewController: vc);
+        //        self.add(asChildViewController: vc);
         return vc;
     }();
     
     @objc func clicked(_ sender: UIButton) {
+        var fromvc: UIViewController? = nil;
+        var tovc: UIViewController? = nil;
+        var currenttag: Int? = nil;
+        var newtag: Int? = nil;
+        
+        newtag = sender.tag;
+        tovc = getController(forIndex: newtag!)!;
+        
         if selectedButtonBar != nil {
-            let currenttag = selectedButtonBar!.superview?.tag;
-            
-            if currenttag != nil {
-                remove(asChildViewController: getController(forIndex: currenttag!));
+            currenttag = selectedButtonBar!.superview?.tag;
+            if currenttag == newtag {
+                return; // the user clicked the same button.
             }
             selectedButtonBar!.removeFromSuperview();
+            selectedButtonBar!.frame = CGRect(x: 0.0,y: sender.frame.size.height - 3, width: sender.frame.size.width, height: 3.0)
+            sender.addSubview(selectedButtonBar!)
         }
-        let newtag = sender.tag;
-        add(asChildViewController: getController(forIndex: newtag));
-        selectedButtonBar!.frame = CGRect(x: 0.0,y: sender.frame.size.height - 3, width: sender.frame.size.width, height: 3.0)
-        sender.addSubview(selectedButtonBar!)
+        
+        if currenttag != nil {
+            fromvc = getController(forIndex: currenttag!)!;
+        }
+        
+        if tovc != nil {
+            if fromvc != nil {
+                addChild(tovc!);
+                if currenttag! < newtag! {
+                    tovc!.view.center.x = -tovc!.view.bounds.width/2;
+                }else{
+                    tovc!.view.center.x = tovc!.view.bounds.width * 1.5;
+                }
+                transition(from: fromvc!, to: tovc!, duration: 0.25, options: .curveLinear, animations: {
+                    tovc!.view.center.x = tovc!.view.bounds.width/2;
+                    
+                },  completion: {finished in
+                    print(finished); //just to show that you can perform some actions if animation completed successfully.
+                });
+            }else{
+                add(asChildViewController: tovc!)
+            }
+        }
+        //        add(asChildViewController: getController(forIndex: newtag));
     }
     
     
+    //                remove(asChildViewController: getController(forIndex: currenttag!));
     
+    ///
     private func add(asChildViewController viewController: UIViewController?){
         if viewController != nil {
             addChild(viewController!);
