@@ -9,12 +9,138 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    
+    //the adornment for selected button. Initialized as a zero size view; will be later converted to an underline of the selected button.
+    var selectedButtonBar: UIView? = nil; // = UIView.init(frame: CGRect(x: 0.0,y: 0.0, width: 0.0, height: 0.0));
+    
+    
+    @IBOutlet weak var containerView: UIView!
+    
+    @IBOutlet var buttons: [UIButton]!
+    private lazy var  firstvc: FirstViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "firstvc") as! FirstViewController;
+//        self.addChild(vc);
+        return vc;
+    }();
+    private lazy var  secondvc: SecondViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "secondvc") as! SecondViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    private lazy var  thirdvc: ThirdViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "thirdvc") as! ThirdViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    private lazy var  fourthvc: FourthViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "fourthvc") as! FourthViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    private lazy var  fifthvc: FifthViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "fifthvc") as! FifthViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    private lazy var  sixthvc: SixthViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "sixthvc") as! SixthViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    private lazy var  seventhvc: SeventhViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "seventhvc") as! SeventhViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    private lazy var  eighthvc: EighthViewController = {
+        var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "eighthvc") as! EighthViewController;
+//        self.add(asChildViewController: vc);
+        return vc;
+    }();
+    
+    @objc func clicked(_ sender: UIButton) {
+        if selectedButtonBar != nil {
+            let currenttag = selectedButtonBar!.superview?.tag;
+            
+            if currenttag != nil {
+                remove(asChildViewController: getController(forIndex: currenttag!));
+            }
+            selectedButtonBar!.removeFromSuperview();
+        }
+        let newtag = sender.tag;
+        add(asChildViewController: getController(forIndex: newtag));
+        selectedButtonBar!.frame = CGRect(x: 0.0,y: sender.frame.size.height - 3, width: sender.frame.size.width, height: 3.0)
+        sender.addSubview(selectedButtonBar!)
+    }
+    
+    
+    
+    private func add(asChildViewController viewController: UIViewController?){
+        if viewController != nil {
+            addChild(viewController!);
+            containerView.addSubview(viewController!.view);
+            viewController!.view.frame = containerView.bounds;
+            viewController!.view.autoresizingMask = [.flexibleWidth, .flexibleHeight];
+            viewController!.didMove(toParent: self);
+        }
+    }
+    
+    private func remove(asChildViewController viewController: UIViewController?){
+        if viewController != nil {
+            viewController!.willMove(toParent: nil);
+            viewController!.view.removeFromSuperview();
+            viewController!.removeFromParent();
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        UIButton.appearance().backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9568627451, alpha: 1)
+        if buttons.count > 0 {
+            let b: UIButton = buttons[0]; //make the first button selected by default.
+            selectedButtonBar = UIView.init(frame: CGRect(x: 0.0,y: b.frame.size.height - 3, width: b.frame.size.width, height: 3.0));
+            selectedButtonBar?.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+            b.addSubview(selectedButtonBar!);
+            add(asChildViewController: firstvc);
+            //            remove(asChildViewController: secondvc)
+            //            remove(asChildViewController: thirdvc)
+            //            remove(asChildViewController: fourthvc)
+            //            remove(asChildViewController: fifthvc)
+            //            remove(asChildViewController: sixthvc)
+            //            remove(asChildViewController: seventhvc)
+            //            remove(asChildViewController: eighthvc)
+            for b in buttons {
+                b.addTarget(self, action: #selector(clicked(_:)), for: UIControl.Event.touchUpInside)
+            }
+        }
     }
-
-
+    
+    private func getController(forIndex index: Int) -> UIViewController? {
+        var retval: UIViewController?;
+        switch index{
+        case 0:
+            retval = firstvc;
+        case 1:
+            retval = secondvc;
+        case 2:
+            retval = thirdvc;
+        case 3:
+            retval = fourthvc;
+        case 4:
+            retval = fifthvc;
+        case 5:
+            retval = sixthvc;
+        case 6:
+            retval = seventhvc;
+        case 7:
+            retval = eighthvc;
+        default:
+            retval = nil;
+        }
+        
+        return retval;
+    }
+    
+    
+    
 }
-
