@@ -20,42 +20,34 @@ class ViewController: UIViewController {
     @IBOutlet var buttons: [UIButton]!
     private lazy var  firstvc: FirstViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "firstvc") as! FirstViewController;
-        //        self.addChild(vc);
         return vc;
     }();
     private lazy var  secondvc: SecondViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "secondvc") as! SecondViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  thirdvc: ThirdViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "thirdvc") as! ThirdViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  fourthvc: FourthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "fourthvc") as! FourthViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  fifthvc: FifthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "fifthvc") as! FifthViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  sixthvc: SixthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "sixthvc") as! SixthViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  seventhvc: SeventhViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "seventhvc") as! SeventhViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     private lazy var  eighthvc: EighthViewController = {
         var vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "eighthvc") as! EighthViewController;
-        //        self.add(asChildViewController: vc);
         return vc;
     }();
     

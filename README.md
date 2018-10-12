@@ -19,6 +19,18 @@ All view controller transitions follow a similar pattern (at least as far as I k
 
 ---
 ## Horizontal Scroll Menu - over view
+Often times you need to provide a horizontal scrolling menu with multiple buttons. Clicking a button should bring the relevant view controller on a specified area of the screen.  
+This is a sample project that shows you how easy it is to create this use case without using any pods. All you need for the menu are:
+1. Scroll view
+2. Horizontal stack view 
+3. Set the constraints of the above as shown in the project
+4. A number of buttons - as many view controllers that need to be displayed.
+5. A container view - this will be the view that will hold the active view controller. 
+
+You will notice, in the code, that we use UIViewController's transition function to transition from presenting view to presented view. There is some nice and simple animation thrown in as well.  
+
+The transition function is essentially a wrapper over a few other function calls. The code for that is commented in ViewController.swift file for anyone who would like to see what happens internally.  
+
 
 
 
