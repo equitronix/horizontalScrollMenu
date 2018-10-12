@@ -11,7 +11,7 @@ _italic_
 1. number 1
 2. number 2
 3. number 3  
-[Side Menu] (https://github.com/equitronix/sidemenu) 
+[Side Menu](https://github.com/equitronix/sidemenu) 
 
 
 
