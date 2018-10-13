@@ -32,6 +32,19 @@ You will notice, in the code, that we use UIViewController's transition function
 The transition function is essentially a wrapper over a few other function calls. The code for that is commented in ViewController.swift file for anyone who would like to see what happens internally.  
 
 
+## Notes on View Controllers
+1. View controllers (VC) are of 2 types: content and container.
+2. All view controllers have a root view that encloses all of VC content. All other views are sub views of this root view.
+2. Content VC have only child views and is responsible for managing them
+3. Container VC have root view which has its child views and also has clild view controllers. This a container VC can have both clild view controllers and content including child views of its root view.
+4. The container VC manages its root view, its sub views and ONLY the root view of its child view controllers. 
+5. Each iOS app has one (can have more than one if multiple devices are being controller simultaneously) window object. 
+6. The window has 1 root view controller. This is the overall parent of all other view controllers in the app. 
+7. Use rootViewController porperty of UIWindow
+8. For example a navigation controller is a container VC which manages the tool bar, navigation bar on its own and loads a VC supplied by you.
+9. Similarly split, tab and page are all container VC
+10. You can imagine a split view controller to be formed with a container view as the root view of the root controller (one that is attached to Window). To the root view of this container you could add child view containers arranged horizontally and then content view controllers attached via story board or code to these child container view.
+
 
 
 
